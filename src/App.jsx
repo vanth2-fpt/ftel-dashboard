@@ -4,7 +4,6 @@ import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Respons
 export default function App() {
   const [activeTab, setActiveTab] = useState('tongquan');
 
-  // Dữ liệu cho Biểu đồ (Tab Tổng quan)
   const chartData = [
     { name: 'Xã Ba Vì', congNo: 55, traTruoc: 10, roiMang: 0.12 },
     { name: 'Xã Bất Bạt', congNo: 58, traTruoc: 12, roiMang: 0.15 },
@@ -20,7 +19,6 @@ export default function App() {
     { name: 'Xã Đan Phượng', congNo: 55, traTruoc: 12, roiMang: 0.13 },
   ];
 
-  // Dữ liệu Bảng chi tiết Block (Tab Tổng quan)
   const blockHn91 = [
     { block: 'Hiennt181', au: 5267, rm: 0, congno: '55.21%', tratruoc: '8.1%', thietbi: '22.2%', cll2: 6.2, huy: 0, rmau: '0%' },
     { block: 'Mott5', au: 5430, rm: 0, congno: '52.72%', tratruoc: '13.1%', thietbi: '25.0%', cll2: 2.9, huy: 0, rmau: '0%' },
@@ -37,7 +35,55 @@ export default function App() {
     { block: 'Yenkt2', au: 5122, rm: 0, congno: '59.64%', tratruoc: '18.5%', thietbi: '41.7%', cll2: 0.0, huy: 0, rmau: '0%' },
   ];
 
-  // Dữ liệu Báo cáo trả trước (Tab Trả trước)
+  const preDataHN91 = [
+    { acc: 'Mott5', tong: 623, datt: 598, tt1t: 5, vvip: 0, tyle: '95.2%', conthu: -32 },
+    { acc: 'Netpt2', tong: 464, datt: 438, tt1t: 3, vvip: 3, tyle: '94.4%', conthu: -20 },
+    { acc: 'ThuyPT73', tong: 479, datt: 445, tt1t: 2, vvip: 1, tyle: '92.7%', conthu: -13 },
+    { acc: 'LinhTK2', tong: 523, datt: 480, tt1t: 1, vvip: 2, tyle: '91.9%', conthu: -10 },
+    { acc: 'ThuNT20', tong: 553, datt: 505, tt1t: 1, vvip: 1, tyle: '91.3%', conthu: -7 },
+    { acc: 'HuongKTH', tong: 512, datt: 469, tt1t: 3, vvip: 0, tyle: '91.0%', conthu: -5 },
+    { acc: 'Doannt9', tong: 494, datt: 453, tt1t: 6, vvip: 2, tyle: '90.9%', conthu: -4 },
+    { acc: 'LanHN3', tong: 607, datt: 554, tt1t: 4, vvip: 0, tyle: '90.6%', conthu: -4 },
+
+
+cat << 'EOF' > src/App.jsx
+import React, { useState } from 'react';
+import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('tongquan');
+
+  const chartData = [
+    { name: 'Xã Ba Vì', congNo: 55, traTruoc: 10, roiMang: 0.12 },
+    { name: 'Xã Bất Bạt', congNo: 58, traTruoc: 12, roiMang: 0.15 },
+    { name: 'Xã Cổ Động', congNo: 53, traTruoc: 11, roiMang: 0.18 },
+    { name: 'Đoài Phương', congNo: 52, traTruoc: 14, roiMang: 0.19 },
+    { name: 'Xã Hạ Bằng', congNo: 56, traTruoc: 10, roiMang: 0.16 },
+    { name: 'Xã Hòa Lạc', congNo: 62, traTruoc: 13, roiMang: 0.32 },
+    { name: 'Xã Quảng Oai', congNo: 54, traTruoc: 12, roiMang: 0.14 },
+    { name: 'Xã Suối Hai', congNo: 51, traTruoc: 15, roiMang: 0.10 },
+    { name: 'Xã Thạch Thất', congNo: 52, traTruoc: 11, roiMang: 0.22 },
+    { name: 'Xã Yên Bài', congNo: 48, traTruoc: 13, roiMang: 0.18 },
+    { name: 'Xã Yên Xuân', congNo: 47, traTruoc: 10, roiMang: 0.11 },
+    { name: 'Xã Đan Phượng', congNo: 55, traTruoc: 12, roiMang: 0.13 },
+  ];
+
+  const blockHn91 = [
+    { block: 'Hiennt181', au: 5267, rm: 0, congno: '55.21%', tratruoc: '8.1%', thietbi: '22.2%', cll2: 6.2, huy: 0, rmau: '0%' },
+    { block: 'Mott5', au: 5430, rm: 0, congno: '52.72%', tratruoc: '13.1%', thietbi: '25.0%', cll2: 2.9, huy: 0, rmau: '0%' },
+    { block: 'ThuyPT73', au: 4239, rm: 0, congno: '57.32%', tratruoc: '10.7%', thietbi: '41.7%', cll2: 8.5, huy: 0, rmau: '0%' },
+    { block: 'Luonggh', au: 4737, rm: 1, congno: '52.15%', tratruoc: '7.7%', thietbi: '37.5%', cll2: 4.4, huy: 0, rmau: '0.02%' },
+    { block: 'Lanhn3', au: 5017, rm: 2, congno: '57.15%', tratruoc: '7.8%', thietbi: '33.3%', cll2: 6.9, huy: 0, rmau: '0.04%' },
+  ];
+
+  const blockHn92 = [
+    { block: 'Thunt20', au: 4929, rm: -1, congno: '58.21%', tratruoc: '8.8%', thietbi: '25.0%', cll2: 3.4, huy: 0, rmau: '-0.02%' },
+    { block: 'Hanhnt17', au: 4702, rm: 0, congno: '48.38%', tratruoc: '6.9%', thietbi: '25.0%', cll2: 4.5, huy: 0, rmau: '0%' },
+    { block: 'Hiennt191', au: 4744, rm: 0, congno: '54.77%', tratruoc: '12.9%', thietbi: '50.0%', cll2: 9.8, huy: 0, rmau: '0%' },
+    { block: 'Thuynt447', au: 3516, rm: 0, congno: '60.47%', tratruoc: '8.1%', thietbi: '18.8%', cll2: 17.9, huy: 0, rmau: '0%' },
+    { block: 'Yenkt2', au: 5122, rm: 0, congno: '59.64%', tratruoc: '18.5%', thietbi: '41.7%', cll2: 0.0, huy: 0, rmau: '0%' },
+  ];
+
   const preDataHN91 = [
     { acc: 'Mott5', tong: 623, datt: 598, tt1t: 5, vvip: 0, tyle: '95.2%', conthu: -32 },
     { acc: 'Netpt2', tong: 464, datt: 438, tt1t: 3, vvip: 3, tyle: '94.4%', conthu: -20 },
@@ -53,7 +99,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans p-4">
-      {/* Header & Thanh chuyển Tab */}
       <header className="bg-white rounded-lg shadow-sm p-4 mb-4 flex flex-wrap items-center justify-between border border-slate-200">
         <div className="flex items-center space-x-3">
           <div className="bg-orange-500 text-white font-extrabold text-xl px-3 py-1 rounded">FPT</div>
@@ -63,7 +108,6 @@ export default function App() {
           </div>
         </div>
 
-        {/* Thanh điều hướng Tab */}
         <div className="flex space-x-2 bg-slate-100 p-1 rounded-lg border border-slate-200">
           <button
             onClick={() => setActiveTab('tongquan')}
@@ -80,10 +124,8 @@ export default function App() {
         </div>
       </header>
 
-      {/* ================= TAB 1: BÁO CÁO TỔNG QUAN ================= */}
       {activeTab === 'tongquan' && (
         <div className="space-y-4">
-          {/* Section 1: KPI Cards Header */}
           <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
             <div className="flex justify-between items-center mb-3">
               <span className="bg-blue-800 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">1. TỔNG QUAN THỰC HIỆN</span>
@@ -94,7 +136,6 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
-              {/* Card 1 */}
               <div className="bg-emerald-50 border border-emerald-300 rounded-lg p-3">
                 <div className="text-emerald-800 font-bold mb-1">RM INTERNET</div>
                 <div className="text-slate-500 text-[11px]">KH: 552 | Thực hiện:</div>
@@ -103,7 +144,6 @@ export default function App() {
                   <span className="bg-emerald-500 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">TỐT (11.8%)</span>
                 </div>
               </div>
-              {/* Card 2 */}
               <div className="bg-emerald-50 border border-emerald-300 rounded-lg p-3">
                 <div className="text-emerald-800 font-bold mb-1">RM TRUYỀN HÌNH</div>
                 <div className="text-slate-500 text-[11px]">KH: 404 | Thực hiện:</div>
@@ -112,7 +152,6 @@ export default function App() {
                   <span className="bg-emerald-500 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">TỐT (3.7%)</span>
                 </div>
               </div>
-              {/* Card 3 */}
               <div className="bg-red-50 border border-red-300 rounded-lg p-3">
                 <div className="text-red-700 font-bold mb-1">CÔNG NỢ</div>
                 <div className="text-slate-500 text-[11px]">KH: 99.70% | Thực hiện:</div>
@@ -121,7 +160,6 @@ export default function App() {
                   <span className="bg-amber-100 text-amber-800 text-[10px] px-1.5 py-0.5 rounded font-bold">CẦN TĂNG ⚠️</span>
                 </div>
               </div>
-              {/* Card 4 */}
               <div className="bg-red-50 border border-red-300 rounded-lg p-3">
                 <div className="text-red-700 font-bold mb-1">TRẢ TRƯỚC</div>
                 <div className="text-slate-500 text-[11px]">KH: 87.0% | Thực hiện:</div>
@@ -130,7 +168,6 @@ export default function App() {
                   <span className="bg-amber-100 text-amber-800 text-[10px] px-1.5 py-0.5 rounded font-bold">CẦN TĂNG ⚠️</span>
                 </div>
               </div>
-              {/* Card 5 */}
               <div className="bg-red-50 border border-red-300 rounded-lg p-3">
                 <div className="text-red-700 font-bold mb-1">THU HỒI THIẾT BỊ</div>
                 <div className="text-slate-500 text-[11px]">KH: 65.0% | Thực hiện:</div>
@@ -142,7 +179,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Section 2: Biểu đồ kết hợp */}
           <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
             <div className="flex justify-between items-center mb-4">
               <span className="text-xs font-bold text-slate-700 uppercase">2. BIỂU ĐỒ SO SÁNH CÔNG NỢ, TRẢ TRƯỚC VÀ TỶ LỆ RỜI MẠNG (NET/AU) THEO XÃ / PHƯỜNG</span>
@@ -169,14 +205,12 @@ export default function App() {
             </div>
           </div>
 
-          {/* Section 3: Bảng chi tiết Block */}
           <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
             <span className="bg-blue-800 text-white text-xs font-bold px-3 py-1 rounded-full uppercase inline-block mb-3">
               3. KẾT QUẢ THỰC HIỆN CHI TIẾT THEO BLOCK NHÂN SỰ
             </span>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px]">
-              {/* Bảng HN9.1 */}
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse border border-slate-200 text-center">
                   <thead className="bg-slate-100 text-slate-700 font-bold">
@@ -218,7 +252,6 @@ export default function App() {
                 </table>
               </div>
 
-              {/* Bảng HN9.2 */}
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse border border-slate-200 text-center">
                   <thead className="bg-slate-100 text-slate-700 font-bold">
@@ -262,7 +295,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Section 4: Hành động trọng tâm */}
           <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
             <span className="bg-blue-800 text-white text-xs font-bold px-3 py-1 rounded-full uppercase inline-block mb-3">
               4. HÀNH ĐỘNG TRỌNG TÂM
@@ -289,7 +321,6 @@ export default function App() {
         </div>
       )}
 
-      {/* ================= TAB 2: BÁO CÁO TRẢ TRƯỚC (EXCEL STYLE) ================= */}
       {activeTab === 'tratruoc' && (
         <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm max-w-4xl mx-auto">
           <div className="text-center mb-4">
@@ -326,8 +357,6 @@ export default function App() {
                     </td>
                   </tr>
                 ))}
-
-                {/* Hàng Tổng HN9.1 */}
                 <tr className="bg-emerald-200 font-extrabold text-emerald-950">
                   <td className="p-2 border border-slate-400 text-left">HN9.1</td>
                   <td className="p-2 border border-slate-400">6927</td>
@@ -337,8 +366,6 @@ export default function App() {
                   <td className="p-2 border border-slate-400">90.9%</td>
                   <td className="p-2 border border-slate-400 text-emerald-800">-272</td>
                 </tr>
-
-                {/* Hàng Tổng Chi Nhánh HN9 */}
                 <tr className="bg-amber-300 font-black text-amber-950 text-sm">
                   <td className="p-2 border border-slate-400 text-left">HN9</td>
                   <td className="p-2 border border-slate-400">10136</td>
